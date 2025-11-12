@@ -17,6 +17,10 @@
 (setq package--init-file-ensured t)
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq gc-cons-percentage 0.1)
+            (setq gc-cons-threshold 800000)))
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t)
 (setq frame-inhibit-implied-resize t)
