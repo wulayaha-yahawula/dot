@@ -25,6 +25,9 @@
 
 (use-package emacs
   :ensure nil
+  :hook
+  (minibuffer-setup-hook . (lambda () (setq gc-cons-threshold most-positive-fixnum)))
+  (minibuffer-exit-hook . (lambda () (setq gc-cons-threshold 800000)))
   :config
   (setq gc-cons-percentage 0.6)
   (setq gc-cons-threshold most-positive-fixnum)
@@ -37,12 +40,11 @@
 
 (use-package faces
   :ensure nil
-  :hook (after-init . set-fonts)
+  :hook (emacs-startup . set-fonts)
   :config
   (defun set-fonts ()
     "fonts setup"
     (when (display-graphic-p)
-      ;; Set default font
       (cl-loop for font in '("JetbrainsMono Nerd Font" "Menlo" "Consolas")
                when (find-font (font-spec :name font))
                return (set-face-attribute 'default nil
@@ -50,7 +52,7 @@
                                           :height (cond ((eq system-type 'darwin) 130)
                                                         ((eq system-type 'windows-nt) 110)
                                                         (t 100))))
-      (cl-loop for font in '("SF Mono" "Menlo" "SF Pro Display" "Helvetica")
+      (cl-loop for font in '("JetBrainsMono Nerd Font" "Menlo" "Consolas")
                when (find-font (font-spec :name font))
                return (progn
                         (set-face-attribute 'mode-line nil :family font :height 120)
@@ -162,7 +164,18 @@
 (use-package ibuffer
   :ensure nil
   :bind
-  (([remap list-buffers] . ibuffer)))
+  (([remap list-buffers] . ibuffer))
+  :config
+  (setq ibuffer-expert t)
+  (setq ibuffer-display-summary nil)
+  (setq ibuffer-use-other-window nil)
+  (setq ibuffer-show-empty-filter-groups nil)
+  (setq ibuffer-movement-cycle nil)
+  (setq ibuffer-default-sorting-mode 'filename/process)
+  (setq ibuffer-use-header-line t)
+  (setq ibuffer-default-shrink-to-minimum-size nil)
+  (setq ibuffer-saved-filter-groups nil)
+  (setq ibuffer-old-time 48))
 
 (use-package delsel
   :ensure nil
@@ -226,6 +239,14 @@
           (clojure . ("https://github.com/sogaiu/tree-sitter-clojure"))
           (nix . ("https://github.com/nix-community/nix-ts-mode"))
           (mojo . ("https://github.com/HerringtonDarkholme/tree-sitter-mojo")))))
+
+(use-package uniquify
+  :ensure nil
+  :config
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator " • ")
+  (setq uniquify-after-kill-buffer-p t)
+  (setq uniquify-ignore-buffers-re "^\\*"))
 
 ;;; EVIL
 (use-package evil
@@ -339,6 +360,23 @@
   (setq evil-snipe-repeat-scope 'whole-buffer))
 
 ;;; UI
+(use-package dashboard
+  :hook (after-init . dashboard-setup-startup-hook)
+  :config
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (setq dashboard-navigation-cycle t)
+  (setq dashboard-show-shortcuts t)
+  (setq dashboard-display-icons-p t)
+  (setq dashboard-icon-type 'nerd-icons)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-icon-file-height 1.75)
+  (setq dashboard-icon-file-v-adjust -0.125)
+  (setq dashboard-heading-icon-height 1.75)
+  (setq dashboard-heading-icon-v-adjust -0.125))
+
 (use-package doom-themes
   :hook (after-init . (lambda () (load-theme 'doom-one t)))
   :config
@@ -519,7 +557,9 @@
   :commands vundo)
 
 (use-package esup
-  :commands esup)
+  :commands esup
+  :config
+  (setq esup-depth 0))
 
 (use-package minimap
   :commands minimap-mode
