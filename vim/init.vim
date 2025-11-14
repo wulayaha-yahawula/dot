@@ -1,4 +1,5 @@
 " Options
+set autoindent
 set autoread
 set autowrite
 set colorcolumn=80
@@ -56,6 +57,11 @@ augroup large_file_performance
     \| setlocal nospell
     \| setlocal nocursorline
     \| endif
+augroup END
+
+augroup disable_auto_comment
+  autocmd!
+  autocmd BufReadPost,FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
 " vim-plug
