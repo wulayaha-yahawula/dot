@@ -276,6 +276,13 @@ augroup load_textobj
     \| autocmd! load_textobj
 augroup END
 
+Plug 'psliwka/vim-smoothie', { 'on': [] }
+augroup load_smoothie
+  autocmd!
+  autocmd BufReadPost * call plug#load('vim-smoothie')
+    \| autocmd! load_smoothie
+augroup END
+
 Plug 'LunarWatcher/auto-pairs', { 'on': [] }
 augroup load_auto_pairs
   autocmd!
@@ -399,7 +406,7 @@ augroup load_completion
     \| call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({ 'name': 'buffer', 'allowlist': [ '*' ], 'blocklist': [ 'go' ], 'completor': function('asyncomplete#sources#buffer#completor'), 'config': { 'max_buffer_size': 5000000 } }))
     \| call lsp#enable()
     \| if executable('clangd')
-    \| call lsp#register_server({ 'name': 'clangd', 'cmd': { server_info -> [ 'clangd', '-background-index' ] }, 'whitelist': ['c', 'cpp', 'objc', 'objcpp'] }) 
+    \| call lsp#register_server({ 'name': 'clangd', 'cmd': { server_info -> [ 'clangd', '-background-index' ] }, 'whitelist': ['c', 'cpp', 'objc', 'objcpp'] })
     \| endif
 augroup END
 
