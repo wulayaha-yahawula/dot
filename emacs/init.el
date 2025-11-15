@@ -479,7 +479,7 @@
   (dired-mode . diff-hl-dired-mode))
 
 (use-package eldoc-mouse
-  :hook ((eglot-managed-mode emacs-lisp-mode) . emacs-lisp-mode))
+  :hook ((eglot-managed-mode emacs-lisp-mode) . eldoc-mouse-mode))
 
 (use-package hl-todo
   :hook ((prog-mode yaml-mode) . hl-todo-mode)
@@ -686,8 +686,12 @@
   (setq lua-indent-nested-block-content-align nil)
   (setq lua-indent-close-paren-align nil))
 
-(use-package pyvenv)
-(use-package uv-mode)
+(use-package pyvenv
+  :hook (python-mode . pyvenv-mode))
+
+(use-package uv-mode
+  :hook (python-mode . uv-mode))
+
 (use-package cmake-mode)
 (use-package clojure-mode)
 (use-package csv-mode)
