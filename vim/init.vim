@@ -346,6 +346,21 @@ endif
 Plug 'liuchengxu/vista.vim', { 'on': ['Vista'] }
 let g:vista_default_executive = 'vim_lsp'
 
+Plug 'voldikss/vim-floaterm', { 'on': ['FloatermNew', 'FloatermPrev', 'FloatermNext', 'FloatermToggle'] }
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+let g:floaterm_wintype = 'split'
+let g:floaterm_position = 'botright'
+nnoremap <silent> <F7> :FloatermNew<CR>
+tnoremap <silent> <F7> <C-\><C-n>:FloatermNew<CR>
+nnoremap <silent> <F8> :FloatermPrev<CR>
+tnoremap <silent> <F8> <C-\><C-n>:FloatermPrev<CR>
+nnoremap <silent> <F9> :FloatermNext<CR>
+tnoremap <silent> <F9> <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <F12> :FloatermToggle<CR>
+tnoremap <silent> <F12> <C-\><C-n>:FloatermToggle<CR>
+
+Plug 'jpalardy/vim-slime', { 'on': ['SlimeConfig'] }
 Plug 'dyng/ctrlsf.vim', { 'on': ['CtrlSF'] }
 Plug 'metakirby5/codi.vim', { 'on': ['Codi', 'CodiNew', 'CodiSelect', 'CodiExpand'] }
 Plug 'skywind3000/asyncrun.vim', { 'on': ['AsyncRun'] }
@@ -361,6 +376,7 @@ nnoremap <silent> <leader> :<C-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<C-u>WhichKey ','<CR>
 let g:which_key_map = {}
 let g:which_key_map.t = { 'name': '+Toggle' }
+let g:which_key_map.T = { 'name': '+Term' }
 let g:which_key_map.f = { 'name': '+Find' }
 let g:which_key_map.g = { 'name': '+Goto' }
 let g:which_key_map.w = { 'name': '+Window' }
@@ -408,9 +424,9 @@ if !executable('node')
       \| call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({ 'name': 'file', 'allowlist': ['*'], 'priority': 10, 'completor': function('asyncomplete#sources#file#completor') }))
       \| call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({ 'name': 'buffer', 'allowlist': ['*'], 'blocklist': ['go'], 'completor': function('asyncomplete#sources#buffer#completor'), 'config': { 'max_buffer_size': 5000000 } }))
       \| call lsp#enable()
-      \| if executable('clangd')
-      \| call lsp#register_server({ 'name': 'clangd', 'cmd': { server_info -> [ 'clangd', '-background-index' ] }, 'whitelist': ['c', 'cpp', 'objc', 'objcpp'] })
-      \| endif
+      \| if executable('clangd') | call lsp#register_server({ 'name': 'clangd', 'cmd': { server_info -> [ 'clangd', '-background-index' ] }, 'whitelist': ['c', 'cpp', 'objc', 'objcpp'] }) | endif
+      \| if executable('basedpyright') | call lsp#register_server({ 'name': 'basedpyright', 'cmd': { server_info -> [ 'basedpyright-langserver', '--stdio' ] }, 'whitelist': ['python'] }) | endif
+      \| if executable('typescript-language-server') | call lsp#register_server({ 'name': 'typescript-language-server', 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio'] }, 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json')) }, 'whitelist': ['javascript', 'typescript', 'javascript.tsx', 'typescript.tsx', 'javascriptreact', 'typescriptreact'] })
   augroup END
 endif
 
