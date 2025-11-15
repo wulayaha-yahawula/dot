@@ -1,21 +1,21 @@
-local wezterm = require('wezterm')
+local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-  config.font_size = 9.0
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	config.font_size = 9.0
 elseif wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
-  config.font_size = 12.5
+	config.font_size = 12.5
 elseif wezterm.target_triple == "x86_64-apple-darwin" then
-  config.font_size = 10.0
+	config.font_size = 10.0
 end
 
 config.initial_cols = 120
 config.initial_rows = 40
 config.window_padding = {
-  left = 12,
-  right = 12,
-  top = 12,
-  bottom = 12
+	left = 12,
+	right = 12,
+	top = 12,
+	bottom = 12,
 }
 config.font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular", italic = false })
 config.color_scheme = "carbonfox"

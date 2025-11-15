@@ -478,6 +478,9 @@
   (prog-mode . global-diff-hl-show-hunk-mouse-mode)
   (dired-mode . diff-hl-dired-mode))
 
+(use-package eldoc-mouse
+  :hook ((eglot-managed-mode emacs-lisp-mode) . emacs-lisp-mode))
+
 (use-package hl-todo
   :hook ((prog-mode yaml-mode) . hl-todo-mode)
   :config
