@@ -1,11 +1,22 @@
 -- Options
 vim.opt.cmdheight = 0
+vim.opt.cmdwinheight = 5
+vim.opt.completeopt = "fuzzy,menuone,noselect,popup"
 vim.opt.wrap = false
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
 vim.opt.colorcolumn = "80"
+vim.opt.errorbells = true
+vim.opt.helpheight = 12
+vim.opt.history = 2000
+vim.opt.laststatus = 3
+vim.opt.listchars = "tab:»·,nbsp:+,trail:·,extends:→,precedes:←"
+vim.opt.pumblend = 0
+vim.opt.virtualedit = "block"
+vim.opt.scrolloff = 10
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 

@@ -32,6 +32,8 @@
   (setq gc-cons-percentage 0.6)
   (setq gc-cons-threshold most-positive-fixnum)
   (setq fast-but-imprecise-scrolling t)
+  (setq-default scroll-conservatively 2)
+  (setq-default scroll-margin 2)
   (setq-default truncate-lines t)
   (setq-default fill-column 80)
   (setq-default tab-width 2)
@@ -128,6 +130,10 @@
   :hook (prog-mode . whitespace-mode)
   :config
   (setq whitespace-style '(face trailing)))
+
+(use-package loaddefs
+  :ensure nil
+  :hook (after-init . savehist-mode))
 
 (use-package so-long
   :ensure nil

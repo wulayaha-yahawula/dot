@@ -15,6 +15,7 @@
           noninteractive)
   (setq package-enable-at-startup nil))
 (setq package--init-file-ensured t)
+(setq read-process-output-max (* 1024 1024))
 (setq gc-cons-percentage 0.6)
 (setq gc-cons-threshold most-positive-fixnum)
 (add-hook 'emacs-startup-hook
